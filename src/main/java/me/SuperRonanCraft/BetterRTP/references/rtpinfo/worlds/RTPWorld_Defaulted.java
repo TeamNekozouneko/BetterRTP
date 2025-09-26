@@ -14,9 +14,13 @@ public interface RTPWorld_Defaulted {
 
     void setCenterZ(int value);
 
-    void setMaxRadius(int value);
+    void setMaxXRadius(int value);
 
-    void setMinRadius(int value);
+    void setMinXRadius(int value);
+
+    void setMaxZRadius(int value);
+
+    void setMinZRadius(int value);
 
     void setPrice(int value);
 
@@ -39,8 +43,10 @@ public interface RTPWorld_Defaulted {
     }
 
     default void setAllFrom(RTPWorld rtpWorld) {
-        setMaxRadius(rtpWorld.getMaxRadius());
-        setMinRadius(rtpWorld.getMinRadius());
+        setMaxXRadius(rtpWorld.getMaxXRadius());
+        setMinXRadius(rtpWorld.getMinXRadius());
+        setMaxZRadius(rtpWorld.getMaxZRadius());
+        setMinZRadius(rtpWorld.getMinZRadius());
         setUseWorldBorder(rtpWorld.getUseWorldborder());
         setCenterX(rtpWorld.getCenterX());
         setCenterZ(rtpWorld.getCenterZ());

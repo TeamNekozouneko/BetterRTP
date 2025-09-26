@@ -15,7 +15,7 @@ import java.util.*;
 @SuppressWarnings("rawtypes")
 public class WorldPermissionGroup implements RTPWorld, RTPWorld_Defaulted {
     private boolean useWorldborder, RTPOnDeath;
-    private int centerX, centerZ, maxRad, minRad, price, miny, maxy;
+    private int centerX, centerZ, maxXRad, minXRad, maxZRad, minZRad, price, miny, maxy;
     private List<String> biomes;
     public World world;
     private RTP_SHAPE shape;
@@ -57,28 +57,52 @@ public class WorldPermissionGroup implements RTPWorld, RTPWorld_Defaulted {
                     BetterRTP.debug("- - CenterZ: " + centerZ);
                 }
             }
-            if (field.equalsIgnoreCase("MaxRadius")) {
+            if (field.equalsIgnoreCase("MaxXRadius")) {
                 if (hash3.getValue().getClass() == Integer.class) {
-                    maxRad = Integer.parseInt((hash3.getValue()).toString());
-                    BetterRTP.debug("- - MaxRadius: " + maxRad);
+                    maxXRad = Integer.parseInt((hash3.getValue()).toString());
+                    BetterRTP.debug("- - MaxXRadius: " + maxXRad);
                 }
-                if (maxRad <= 0) {
+                if (maxXRad <= 0) {
                     Message_RTP.sms(Bukkit.getConsoleSender(),
-                            "WARNING! Group '" + group + "' Maximum radius of '" + maxRad + "' is not allowed! Set to default value!");
-                    maxRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxRadius();
+                            "WARNING! Group '" + group + "' Maximum X radius of '" + maxXRad + "' is not allowed! Set to default value!");
+                    maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
                 }
             }
-            if (field.equalsIgnoreCase("MinRadius")) {
+            if (field.equalsIgnoreCase("MinXRadius")) {
                 if (hash3.getValue().getClass() == Integer.class) {
-                    minRad = Integer.parseInt((hash3.getValue()).toString());
-                    BetterRTP.debug("- - MinRadius: " + minRad);
+                    minXRad = Integer.parseInt((hash3.getValue()).toString());
+                    BetterRTP.debug("- - MinXRadius: " + minXRad);
                 }
-                if (minRad < 0 || minRad >= maxRad) {
+                if (minXRad < 0 || minXRad >= maxXRad) {
                     Message_RTP.sms(Bukkit.getConsoleSender(),
-                            "WARNING! Group '" + group + "' Minimum radius of '" + minRad + "' is not allowed! Set to default value!");
-                    minRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinRadius();
-                    if (minRad >= maxRad)
-                        maxRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxRadius();
+                            "WARNING! Group '" + group + "' Minimum X radius of '" + minXRad + "' is not allowed! Set to default value!");
+                    minXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinXRadius();
+                    if (minXRad >= maxXRad)
+                        maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
+                }
+            }
+            if (field.equalsIgnoreCase("MaxZRadius")) {
+                if (hash3.getValue().getClass() == Integer.class) {
+                    maxZRad = Integer.parseInt((hash3.getValue()).toString());
+                    BetterRTP.debug("- - MaxZRadius: " + maxZRad);
+                }
+                if (maxZRad <= 0) {
+                    Message_RTP.sms(Bukkit.getConsoleSender(),
+                            "WARNING! Group '" + group + "' Maximum Z radius of '" + maxZRad + "' is not allowed! Set to default value!");
+                    maxZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxZRadius();
+                }
+            }
+            if (field.equalsIgnoreCase("MinZRadius")) {
+                if (hash3.getValue().getClass() == Integer.class) {
+                    minZRad = Integer.parseInt((hash3.getValue()).toString());
+                    BetterRTP.debug("- - MinZRadius: " + minZRad);
+                }
+                if (minZRad < 0 || minZRad >= maxZRad) {
+                    Message_RTP.sms(Bukkit.getConsoleSender(),
+                            "WARNING! Group '" + group + "' Minimum Z radius of '" + minZRad + "' is not allowed! Set to default value!");
+                    minZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinZRadius();
+                    if (minZRad >= maxZRad)
+                        maxZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxZRadius();
                 }
             }
             if (field.equalsIgnoreCase("Biomes")) {
@@ -148,13 +172,23 @@ public class WorldPermissionGroup implements RTPWorld, RTPWorld_Defaulted {
     }
 
     @Override
-    public int getMaxRadius() {
-        return maxRad;
+    public int getMaxXRadius() {
+        return maxXRad;
     }
 
     @Override
-    public int getMinRadius() {
-        return minRad;
+    public int getMinXRadius() {
+        return minXRad;
+    }
+
+    @Override
+    public int getMaxZRadius() {
+        return maxZRad;
+    }
+
+    @Override
+    public int getMinZRadius() {
+        return minZRad;
     }
 
     @Override
@@ -212,13 +246,23 @@ public class WorldPermissionGroup implements RTPWorld, RTPWorld_Defaulted {
     }
 
     @Override
-    public void setMaxRadius(int value) {
-        this.maxRad = value;
+    public void setMaxXRadius(int value) {
+        this.maxXRad = value;
     }
 
     @Override
-    public void setMinRadius(int value) {
-        this.minRad = value;
+    public void setMinXRadius(int value) {
+        this.minXRad = value;
+    }
+
+    @Override
+    public void setMaxZRadius(int value) {
+        this.maxZRad = value;
+    }
+
+    @Override
+    public void setMinZRadius(int value) {
+        this.minZRad = value;
     }
 
     @Override

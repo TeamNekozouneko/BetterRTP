@@ -75,8 +75,10 @@ Default:
   ## "Biomes: []" means all biomes are allowed! #
   ## Biomes are optional, more biomes at https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/block/Biome.html #
   Biomes: []
-  MaxRadius: 1000
-  MinRadius: 10
+  MaxXRadius: 1000
+  MinXRadius: 10
+  MaxZRadius: 1000
+  MinZRadius: 10
   ## If "UseWorldBorder" is set to true above, Center X and Z will be ignored! #
   CenterX: 0
   CenterZ: 0
@@ -114,8 +116,10 @@ CustomWorlds:
   - custom_world_1:
       UseWorldBorder: false
       ## If UseWorldBorder is true, everything will be ignored EXCEPT "MinRadius"!
-      MaxRadius: 1000
-      MinRadius: 100
+      MaxXRadius: 1000
+      MinXRadius: 100
+      MaxZRadius: 1000
+      MinZRadius: 100
       CenterX: 0
       CenterZ: 0
       Price: 50
@@ -124,8 +128,10 @@ CustomWorlds:
       MinY: 0
       Cooldown: 60
   - other_custom_world:
-      MaxRadius: 10000
-      MinRadius: 150
+      MaxXRadius: 10000
+      MinXRadius: 150
+      MaxZRadius: 10000
+      MinZRadius: 150
       CenterX: 123
       CenterZ: -123
       Price: 0

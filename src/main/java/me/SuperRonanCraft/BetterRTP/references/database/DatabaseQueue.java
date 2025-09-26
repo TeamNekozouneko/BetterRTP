@@ -215,10 +215,10 @@ public class DatabaseQueue extends SQLite {
         @Getter World world;
 
         public QueueRangeData(RTPWorld rtpWorld) {
-            this.xLow = rtpWorld.getCenterX() - rtpWorld.getMaxRadius();
-            this.xHigh = rtpWorld.getCenterX() + rtpWorld.getMaxRadius();
-            this.zLow = rtpWorld.getCenterZ() - rtpWorld.getMaxRadius();
-            this.zHigh = rtpWorld.getCenterZ() + rtpWorld.getMaxRadius();
+            this.xLow = rtpWorld.getCenterX() - rtpWorld.getMaxXRadius();
+            this.xHigh = rtpWorld.getCenterX() + rtpWorld.getMaxXRadius();
+            this.zLow = rtpWorld.getCenterZ() - rtpWorld.getMaxZRadius();
+            this.zHigh = rtpWorld.getCenterZ() + rtpWorld.getMaxZRadius();
             this.world = rtpWorld.getWorld();
         }
 

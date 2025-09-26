@@ -16,7 +16,7 @@ import me.SuperRonanCraft.BetterRTP.references.messages.Message_RTP;
 public class WorldCustom implements RTPWorld, RTPWorld_Defaulted {
     public World world;
     private boolean useWorldborder, RTPOnDeath;
-    private int centerX, centerZ, maxRad, minRad, price, miny, maxy;
+    private int centerX, centerZ, maxXRad, minXRad, maxZRad, minZRad, price, miny, maxy;
     private long cooldown;
     private List<String> biomes;
     private RTP_SHAPE shape;
@@ -63,28 +63,65 @@ public class WorldCustom implements RTPWorld, RTPWorld_Defaulted {
                         BetterRTP.debug("- CenterZ: " + this.centerZ);
                     }
                 }
-                if (test.get("MaxRadius") != null) {
-                    if (test.get("MaxRadius").getClass() == Integer.class) {
-                        maxRad = Integer.parseInt((test.get("MaxRadius")).toString());
-                        BetterRTP.debug("- MaxRadius: " + this.maxRad);
+                if (test.get("MaxXRadius") != null) {
+                    if (test.get("MaxXRadius").getClass() == Integer.class) {
+                        maxXRad = Integer.parseInt((test.get("MaxXRadius")).toString());
+                        BetterRTP.debug("- MaxXRadius: " + this.maxXRad);
                     }
-                    if (maxRad <= 0) {
+                    if (maxXRad <= 0) {
                         Message_RTP.sms(Bukkit.getConsoleSender(),
-                                "WARNING! Custom world '" + world + "' Maximum radius of '" + maxRad + "' is not allowed! Set to default value!");
-                        maxRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxRadius();
+                                "WARNING! Custom world '" + world + "' Maximum X radius of '" + maxXRad + "' is not allowed! Set to default value!");
+                        maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
                     }
                 }
-                if (test.get("MinRadius") != null) {
-                    if (test.get("MinRadius").getClass() == Integer.class) {
-                        minRad = Integer.parseInt((test.get("MinRadius")).toString());
-                        BetterRTP.debug("- MinRadius: " + this.minRad);
+                if (test.get("MinXRadius") != null) {
+                    if (test.get("MinXRadius").getClass() == Integer.class) {
+                        minXRad = Integer.parseInt((test.get("MinXRadius")).toString());
+                        BetterRTP.debug("- MinXRadius: " + this.minXRad);
                     }
-                    if (minRad < 0 || minRad >= maxRad) {
+                    if (minXRad < 0 || minXRad >= maxXRad) {
                         Message_RTP.sms(Bukkit.getConsoleSender(),
-                                "WARNING! Custom world '" + world + "' Minimum radius of '" + minRad + "' is not allowed! Set to default value!");
-                        minRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinRadius();
-                        if (minRad >= maxRad)
-                            maxRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxRadius();
+                                "WARNING! Custom world '" + world + "' Minimum X radius of '" + minXRad + "' is not allowed! Set to default value!");
+                        minXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinXRadius();
+                        if (minXRad >= maxXRad)
+                            maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
+                    }
+                }
+                if (test.get("MaxZRadius") != null) {
+                    if (test.get("MaxZRadius").getClass() == Integer.class) {
+                        maxZRad = Integer.parseInt((test.get("MaxZRadius")).toString());
+                        BetterRTP.debug("- MaxZRadius: " + this.maxZRad);
+                    }
+                    if (maxZRad <= 0) {
+                        Message_RTP.sms(Bukkit.getConsoleSender(),
+                                "WARNING! Custom world '" + world + "' Maximum Z radius of '" + maxXRad + "' is not allowed! Set to default value!");
+                        maxZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxZRadius();
+                    }
+                }
+                if (test.get("MinXRadius") != null) {
+                    if (test.get("MinXRadius").getClass() == Integer.class) {
+                        minXRad = Integer.parseInt((test.get("MinXRadius")).toString());
+                        BetterRTP.debug("- MinXRadius: " + this.minXRad);
+                    }
+                    if (minXRad < 0 || minXRad >= maxXRad) {
+                        Message_RTP.sms(Bukkit.getConsoleSender(),
+                                "WARNING! Custom world '" + world + "' Minimum X radius of '" + minXRad + "' is not allowed! Set to default value!");
+                        minXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinXRadius();
+                        if (minXRad >= maxXRad)
+                            maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
+                    }
+                }
+                if (test.get("MinZRadius") != null) {
+                    if (test.get("MinZRadius").getClass() == Integer.class) {
+                        minZRad = Integer.parseInt((test.get("MinZRadius")).toString());
+                        BetterRTP.debug("- MinZRadius: " + this.minZRad);
+                    }
+                    if (minZRad < 0 || minZRad >= maxZRad) {
+                        Message_RTP.sms(Bukkit.getConsoleSender(),
+                                "WARNING! Custom world '" + world + "' Minimum Z radius of '" + minZRad + "' is not allowed! Set to default value!");
+                        minXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinZRadius();
+                        if (minZRad >= maxZRad)
+                            maxZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxZRadius();
                     }
                 }
                 if (test.get("Biomes") != null) {
@@ -130,16 +167,16 @@ public class WorldCustom implements RTPWorld, RTPWorld_Defaulted {
             }
         }
 
-        if (maxRad <= 0) {
+        if (maxXRad <= 0) {
             Message_RTP.sms(Bukkit.getConsoleSender(),
-                    "WARNING! Custom world '" + world + "' Maximum radius of '" + maxRad + "' is not allowed! Set to default value!");
-            maxRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxRadius();
+                    "WARNING! Custom world '" + world + "' Maximum radius of '" + maxXRad + "' is not allowed! Set to default value!");
+            maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
         }
 
-        if (minRad < 0 || minRad >= maxRad) {
+        if (minXRad < 0 || minXRad >= maxXRad) {
             Message_RTP.sms(Bukkit.getConsoleSender(),
-                    "WARNING! Custom world '" + world + "' Minimum radius of '" + minRad + "' is not allowed! Set to default value!");
-            minRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinRadius();
+                    "WARNING! Custom world '" + world + "' Minimum radius of '" + minXRad + "' is not allowed! Set to default value!");
+            minXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinXRadius();
         }
     }
 
@@ -164,13 +201,23 @@ public class WorldCustom implements RTPWorld, RTPWorld_Defaulted {
     }
 
     @Override
-    public int getMaxRadius() {
-        return maxRad;
+    public int getMaxXRadius() {
+        return maxXRad;
     }
 
     @Override
-    public int getMinRadius() {
-        return minRad;
+    public int getMinXRadius() {
+        return minXRad;
+    }
+
+    @Override
+    public int getMaxZRadius() {
+        return maxZRad;
+    }
+
+    @Override
+    public int getMinZRadius() {
+        return minZRad;
     }
 
     @Override
@@ -231,13 +278,23 @@ public class WorldCustom implements RTPWorld, RTPWorld_Defaulted {
     }
 
     @Override
-    public void setMaxRadius(int value) {
-        this.maxRad = value;
+    public void setMaxXRadius(int value) {
+        this.maxXRad = value;
     }
 
     @Override
-    public void setMinRadius(int value) {
-        this.minRad = value;
+    public void setMinXRadius(int value) {
+        this.minXRad = value;
+    }
+
+    @Override
+    public void setMaxZRadius(int value) {
+        this.maxZRad = value;
+    }
+
+    @Override
+    public void setMinZRadius(int value) {
+        this.minZRad = value;
     }
 
     @Override

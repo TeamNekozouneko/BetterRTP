@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class WorldLocation implements RTPWorld, RTPWorld_Defaulted {
     private boolean useWorldborder, RTPOnDeath;
-    private int centerX, centerZ, maxRad, minRad, price, miny, maxy;
+    private int centerX, centerZ, maxXRad, minXRad, maxZRad, minZRad, price, miny, maxy;
     private long cooldown;
     private List<String> biomes;
     private World world;
@@ -71,29 +71,53 @@ public class WorldLocation implements RTPWorld, RTPWorld_Defaulted {
                         BetterRTP.debug("- - CenterZ: " + centerZ);
                     }
                 }
-                if (section.get("MaxRadius") != null) {
-                    if (section.get("MaxRadius").getClass() == Integer.class)
-                        maxRad = Integer.parseInt((section.get("MaxRadius")).toString());
-                    if (maxRad <= 0) {
+                if (section.get("MaxXRadius") != null) {
+                    if (section.get("MaxXRadius").getClass() == Integer.class)
+                        maxXRad = Integer.parseInt((section.get("MaxXRadius")).toString());
+                    if (maxXRad <= 0) {
                         Message_RTP.sms(Bukkit.getConsoleSender(),
-                                "WARNING! Location '" + location_name + "' Maximum radius of '" + maxRad + "' is not allowed! Set to default value!");
-                        maxRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxRadius();
+                                "WARNING! Location '" + location_name + "' Maximum X radius of '" + maxXRad + "' is not allowed! Set to default value!");
+                        maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
                     }
-                    BetterRTP.debug("- - MaxRadius: " + maxRad);
+                    BetterRTP.debug("- - MaxXRadius: " + maxXRad);
                 }
-                if (section.get("MinRadius") != null) {
-                    if (section.get("MinRadius").getClass() == Integer.class)
-                        minRad = Integer.parseInt((section.get("MinRadius")).toString());
-                    if (minRad < 0 || minRad >= maxRad) {
+                if (section.get("MinXRadius") != null) {
+                    if (section.get("MinXRadius").getClass() == Integer.class)
+                        minXRad = Integer.parseInt((section.get("MinXRadius")).toString());
+                    if (minXRad < 0 || minXRad >= maxXRad) {
                         Message_RTP.sms(Bukkit.getConsoleSender(),
-                                "WARNING! Location '" + location_name + "' Minimum radius of '" + minRad + "' is not allowed! Set to default value!");
-                        minRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinRadius();
-                        if (minRad >= maxRad) {
-                            maxRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxRadius();
-                            BetterRTP.debug("- ! MaxRadius: " + maxRad);
+                                "WARNING! Location '" + location_name + "' Minimum X radius of '" + minXRad + "' is not allowed! Set to default value!");
+                        minXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinXRadius();
+                        if (minXRad >= maxXRad) {
+                            maxXRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxXRadius();
+                            BetterRTP.debug("- ! MaxXRadius: " + maxXRad);
                         }
                     }
-                    BetterRTP.debug("- - MinRad: " + minRad);
+                    BetterRTP.debug("- - MinXRadius: " + minXRad);
+                }
+                if (section.get("MaxZRadius") != null) {
+                    if (section.get("MaxZRadius").getClass() == Integer.class)
+                        maxZRad = Integer.parseInt((section.get("MaxZRadius")).toString());
+                    if (maxZRad <= 0) {
+                        Message_RTP.sms(Bukkit.getConsoleSender(),
+                                "WARNING! Location '" + location_name + "' Maximum Z radius of '" + maxZRad + "' is not allowed! Set to default value!");
+                        maxZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxZRadius();
+                    }
+                    BetterRTP.debug("- - MaxZRadius: " + maxZRad);
+                }
+                if (section.get("MinZRadius") != null) {
+                    if (section.get("MinZRadius").getClass() == Integer.class)
+                        minZRad = Integer.parseInt((section.get("MinZRadius")).toString());
+                    if (minZRad < 0 || minZRad >= maxZRad) {
+                        Message_RTP.sms(Bukkit.getConsoleSender(),
+                                "WARNING! Location '" + location_name + "' Minimum Z radius of '" + minZRad + "' is not allowed! Set to default value!");
+                        minZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinZRadius();
+                        if (minZRad >= maxZRad) {
+                            maxZRad = BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMaxZRadius();
+                            BetterRTP.debug("- ! MaxZRadius: " + maxZRad);
+                        }
+                    }
+                    BetterRTP.debug("- - MinZRadius: " + minXRad);
                 }
                 if (section.get("Biomes") != null) {
                     if (section.get("Biomes").getClass() == ArrayList.class) {
@@ -182,13 +206,23 @@ public class WorldLocation implements RTPWorld, RTPWorld_Defaulted {
     }
 
     @Override
-    public int getMaxRadius() {
-        return maxRad;
+    public int getMaxXRadius() {
+        return maxXRad;
     }
 
     @Override
-    public int getMinRadius() {
-        return minRad;
+    public int getMinXRadius() {
+        return minXRad;
+    }
+
+    @Override
+    public int getMaxZRadius() {
+        return maxZRad;
+    }
+
+    @Override
+    public int getMinZRadius() {
+        return minZRad;
     }
 
     @Override
@@ -248,13 +282,23 @@ public class WorldLocation implements RTPWorld, RTPWorld_Defaulted {
     }
 
     @Override
-    public void setMaxRadius(int value) {
-        this.maxRad = value;
+    public void setMaxXRadius(int value) {
+        this.maxXRad = value;
     }
 
     @Override
-    public void setMinRadius(int value) {
-        this.minRad = value;
+    public void setMinXRadius(int value) {
+        this.minXRad = value;
+    }
+
+    @Override
+    public void setMaxZRadius(int value) {
+        this.maxZRad = value;
+    }
+
+    @Override
+    public void setMinZRadius(int value) {
+        this.minZRad = value;
     }
 
     @Override

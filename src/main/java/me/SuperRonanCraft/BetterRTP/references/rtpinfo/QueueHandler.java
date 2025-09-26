@@ -96,8 +96,8 @@ public class QueueHandler implements Listener { //Randomly queues up some safe l
     public static boolean isInCircle(Location loc, RTPWorld rtpWorld) {
         int center_x = rtpWorld.getCenterX();
         int center_z = rtpWorld.getCenterZ();
-        int radius = rtpWorld.getMaxRadius();
-        int radius_min = rtpWorld.getMinRadius();
+        int radius = rtpWorld.getMaxXRadius();
+        int radius_min = rtpWorld.getMinXRadius();
         int x = loc.getBlockX();
         int z = loc.getBlockZ();
         int square_dist = (center_x - x) * 2 + (center_z - z) * 2;
@@ -105,8 +105,8 @@ public class QueueHandler implements Listener { //Randomly queues up some safe l
     }
 
     public static boolean isInSquare(Location loc, RTPWorld rtpWorld) {
-        int radius_max = rtpWorld.getMaxRadius();
-        int radius_min = rtpWorld.getMinRadius();
+        int radius_max = rtpWorld.getMaxXRadius();
+        int radius_min = rtpWorld.getMinXRadius();
         int x = loc.getBlockX() - rtpWorld.getCenterX();
         int z = loc.getBlockZ() - rtpWorld.getCenterZ();
         return ((Math.abs(x)>=radius_min || Math.abs(z)>=radius_min) && (Math.abs(x) <= radius_max && Math.abs(z) <= radius_max));

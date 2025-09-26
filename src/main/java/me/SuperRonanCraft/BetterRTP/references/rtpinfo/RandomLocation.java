@@ -26,33 +26,37 @@ public class RandomLocation {
 
     private static Location generateSquare(RTPWorld rtpWorld) {
         //Generate a random X and Z based off the quadrant selected
-        int min = rtpWorld.getMinRadius();
-        int max = rtpWorld.getMaxRadius() - min;
+        int minX = rtpWorld.getMinXRadius();
+        int maxX = rtpWorld.getMaxXRadius() - minX;
+        int minZ = rtpWorld.getMinZRadius();
+        int maxZ = rtpWorld.getMaxZRadius() - minZ;
+
         int x, z;
         int quadrant = new Random().nextInt(4);
         try {
             switch (quadrant) {
                 case 0: // Positive X and Z
-                    x = new Random().nextInt(max) + min;
-                    z = new Random().nextInt(max) + min;
+                    x = new Random().nextInt(maxX) + minX;
+                    z = new Random().nextInt(maxZ) + minZ;
                     break;
                 case 1: // Negative X and Z
-                    x = -new Random().nextInt(max) - min;
-                    z = -(new Random().nextInt(max) + min);
+                    x = -new Random().nextInt(maxX) - minX;
+                    z = -(new Random().nextInt(maxZ) + minZ);
                     break;
                 case 2: // Negative X and Positive Z
-                    x = -new Random().nextInt(max) - min;
-                    z = new Random().nextInt(max) + min;
+                    x = -new Random().nextInt(maxX) - minX;
+                    z = new Random().nextInt(maxZ) + minZ;
                     break;
                 default: // Positive X and Negative Z
-                    x = new Random().nextInt(max) + min;
-                    z = -(new Random().nextInt(max) + min);
+                    x = new Random().nextInt(maxX) + minX;
+                    z = -(new Random().nextInt(maxZ) + minZ);
                     break;
             }
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             BetterRTP.getInstance().getLogger().warning("A bounding location was negative! Please check your config only has positive x/z for max/min radius!");
-            BetterRTP.getInstance().getLogger().warning("Max: " + rtpWorld.getMaxRadius() + " Min: " + rtpWorld.getMinRadius());
+            BetterRTP.getInstance().getLogger().warning("MaxX: " + rtpWorld.getMaxXRadius() + " MinX: " + rtpWorld.getMinXRadius());
+            BetterRTP.getInstance().getLogger().warning("MaxZ: " + rtpWorld.getMaxZRadius() + " MinZ: " + rtpWorld.getMinZRadius());
             return null;
         }
         x += rtpWorld.getCenterX();
@@ -63,8 +67,8 @@ public class RandomLocation {
 
     private static Location generateRound(RTPWorld rtpWorld) {
         //Generate a random X and Z based off location on a spiral curve
-        int min = rtpWorld.getMinRadius();
-        int max = rtpWorld.getMaxRadius() - min;
+        int min = rtpWorld.getMinXRadius();
+        int max = rtpWorld.getMaxXRadius() - min;
         int x, z;
 
         double area = Math.PI * (max - min) * (max + min); //of all the area in this donut

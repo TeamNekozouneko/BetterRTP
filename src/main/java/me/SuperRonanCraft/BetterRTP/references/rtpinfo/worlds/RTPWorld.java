@@ -16,9 +16,13 @@ public interface RTPWorld {
 
     int getCenterZ();
 
-    int getMaxRadius();
+    int getMaxXRadius();
 
-    int getMinRadius();
+    int getMinXRadius();
+
+    int getMaxZRadius();
+
+    int getMinZRadius();
 
     int getPrice();
 

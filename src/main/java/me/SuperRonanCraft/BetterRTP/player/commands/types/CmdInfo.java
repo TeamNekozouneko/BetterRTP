@@ -204,8 +204,10 @@ public class CmdInfo implements RTPCommand, RTPCommandHelpable {
             info.add("&7- &eWorld Type&7: &f" + _rtpworld.getWorldtype().name());
             info.add("&7- &6Center X&7: &f" + _rtpworld.getCenterX() + getInfo(_rtpworld, worldDefault, "centerx"));
             info.add("&7- &eCenter Z&7: &f" + _rtpworld.getCenterZ() + getInfo(_rtpworld, worldDefault, "centerz"));
-            info.add("&7- &6Max Radius&7: &f" + _rtpworld.getMaxRadius() + getInfo(_rtpworld, worldDefault, "maxrad"));
-            info.add("&7- &eMin Radius&7: &f" + _rtpworld.getMinRadius() + getInfo(_rtpworld, worldDefault, "minrad"));
+            info.add("&7- &6Max X Radius&7: &f" + _rtpworld.getMaxXRadius() + getInfo(_rtpworld, worldDefault, "maxxrad"));
+            info.add("&7- &eMin X Radius&7: &f" + _rtpworld.getMinXRadius() + getInfo(_rtpworld, worldDefault, "minxrad"));
+            info.add("&7- &6Max Z Radius&7: &f" + _rtpworld.getMaxZRadius() + getInfo(_rtpworld, worldDefault, "maxzrad"));
+            info.add("&7- &eMin Z Radius&7: &f" + _rtpworld.getMinZRadius() + getInfo(_rtpworld, worldDefault, "minzrad"));
             info.add("&7- &6Min Y&7: &f" + _rtpworld.getMinY());
             info.add("&7- &eMax Y&7: &f" + _rtpworld.getMaxY());
             info.add("&7- &6Price&7: &f" + _rtpworld.getPrice() + getInfo(_rtpworld, worldDefault, "price"));
@@ -225,13 +227,20 @@ public class CmdInfo implements RTPCommand, RTPCommandHelpable {
                 return worldPlayer.getUseWorldborder() || worldPlayer.getCenterX() == worldDefault.getCenterX() ? worldPlayer.getUseWorldborder() ? " &8(worldborder)" : " &8(default)" : "";
             case "centerz":
                 return worldPlayer.getUseWorldborder() || worldPlayer.getCenterZ() == worldDefault.getCenterZ() ? worldPlayer.getUseWorldborder() ? " &8(worldborder)" : " &8(default)" : "";
-            case "maxrad":
-                return worldPlayer.getUseWorldborder() || worldPlayer.getMaxRadius() == worldDefault.getMaxRadius() ?
+            case "maxxrad":
+                return worldPlayer.getUseWorldborder() || worldPlayer.getMaxXRadius() == worldDefault.getMaxXRadius() ?
                         worldPlayer.getUseWorldborder() ?
-                        worldPlayer.getMaxRadius() >= worldPlayer.getWorld().getWorldBorder().getSize() ?
+                        worldPlayer.getMaxXRadius() >= worldPlayer.getWorld().getWorldBorder().getSize() ?
                                 " &8(worldborder)" : " &8(custom)" : " &8(default)" : "";
-            case "minrad":
-                return worldPlayer.getMinRadius() == worldDefault.getMinRadius() ? " &8(default)" : "";
+            case "minxrad":
+                return worldPlayer.getMinXRadius() == worldDefault.getMinXRadius() ? " &8(default)" : "";
+            case "maxzrad":
+                return worldPlayer.getUseWorldborder() || worldPlayer.getMaxZRadius() == worldDefault.getMaxZRadius() ?
+                        worldPlayer.getUseWorldborder() ?
+                                worldPlayer.getMaxZRadius() >= worldPlayer.getWorld().getWorldBorder().getSize() ?
+                                        " &8(worldborder)" : " &8(custom)" : " &8(default)" : "";
+            case "minzrad":
+                return worldPlayer.getMinZRadius() == worldDefault.getMinZRadius() ? " &8(default)" : "";
             case "price":
                 return worldPlayer.getPrice() == worldDefault.getPrice() ? " &8(default)" : "";
             case "shape":

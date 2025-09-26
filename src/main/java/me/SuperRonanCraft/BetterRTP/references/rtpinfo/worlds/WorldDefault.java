@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class WorldDefault implements RTPWorld {
     private boolean useWorldborder, RTPOnDeath;
-    private int centerX, centerZ, maxRad, minRad, price, miny, maxy;
+    private int centerX, centerZ, maxXRad, minXRad, maxZRad, minZRad, price, miny, maxy;
     private List<String> Biomes;
     private final HashMap<String, Integer> prices = new HashMap<>();
     private RTP_SHAPE shape;
@@ -30,20 +30,30 @@ public class WorldDefault implements RTPWorld {
         //Integers
         centerX = config.getInt(pre + ".CenterX");
         centerZ = config.getInt(pre + ".CenterZ");
-        maxRad = config.getInt(pre + ".MaxRadius");
+        maxXRad = config.getInt(pre + ".MaxXRadius");
+        maxZRad = config.getInt(pre + ".MaxZRadius");
         try {
             shape = RTP_SHAPE.valueOf(config.getString(pre + ".Shape").toUpperCase());
         } catch (Exception e) {
             shape = RTP_SHAPE.SQUARE;
         }
-        if (maxRad <= 0) {
-            BetterRTP.getInstance().getLogger().warning("WARNING! Default Maximum radius of '" + maxRad + "' is not allowed! Value set to '1000'");
-            maxRad = 1000;
+        if (maxXRad <= 0) {
+            BetterRTP.getInstance().getLogger().warning("WARNING! Default Maximum X radius of '" + maxXRad + "' is not allowed! Value set to '1000'");
+            maxXRad = 1000;
         }
-        minRad = config.getInt(pre + ".MinRadius");
-        if (minRad < 0 || minRad >= maxRad) {
-            BetterRTP.getInstance().getLogger().warning("The Default MinRadius of '" + minRad + "' is not allowed! Value set to '0'");
-            minRad = 0;
+        if (maxZRad <= 0) {
+            BetterRTP.getInstance().getLogger().warning("WARNING! Default Maximum X radius of '" + maxXRad + "' is not allowed! Value set to '1000'");
+            maxXRad = 1000;
+        }
+        minXRad = config.getInt(pre + ".MinXRadius");
+        minZRad = config.getInt(pre + ".MinZRadius");
+        if (minXRad < 0 || minXRad >= maxXRad) {
+            BetterRTP.getInstance().getLogger().warning("The Default MinXRadius of '" + minXRad + "' is not allowed! Value set to '0'");
+            minXRad = 0;
+        }
+        if (minZRad < 0 || minZRad >= maxZRad) {
+            BetterRTP.getInstance().getLogger().warning("The Default MinXRadius of '" + minXRad + "' is not allowed! Value set to '0'");
+            minXRad = 0;
         }
         prices.clear();
         if (BetterRTP.getInstance().getFiles().getType(FileOther.FILETYPE.ECO).getBoolean("Economy.Enabled")) {
@@ -79,8 +89,10 @@ public class WorldDefault implements RTPWorld {
             log.info("- RTPOnDeath: " + this.RTPOnDeath);
             log.info("- CenterX: " + this.centerX);
             log.info("- CenterZ: " + this.centerZ);
-            log.info("- MaxRadius: " + this.maxRad);
-            log.info("- MinRadius: " + this.minRad);
+            log.info("- MaxXRadius: " + this.maxXRad);
+            log.info("- MinXRadius: " + this.minXRad);
+            log.info("- MaxZRadius: " + this.maxZRad);
+            log.info("- MinZRadius: " + this.minZRad);
             log.info("- Price: " + this.price);
             log.info("- MinY: " + this.miny);
             log.info("- MaxY: " + this.maxy);
@@ -104,13 +116,23 @@ public class WorldDefault implements RTPWorld {
     }
 
     @Override
-    public int getMaxRadius() {
-        return maxRad;
+    public int getMaxXRadius() {
+        return maxXRad;
     }
 
     @Override
-    public int getMinRadius() {
-        return minRad;
+    public int getMinXRadius() {
+        return minXRad;
+    }
+
+    @Override
+    public int getMaxZRadius() {
+        return maxZRad;
+    }
+
+    @Override
+    public int getMinZRadius() {
+        return minZRad;
     }
 
     public int getPrice(String world) {

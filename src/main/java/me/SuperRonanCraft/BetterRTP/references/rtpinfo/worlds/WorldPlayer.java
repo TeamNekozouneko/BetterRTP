@@ -19,7 +19,7 @@ import java.util.*;
 public class WorldPlayer implements RTPWorld, RTPWorld_Defaulted {
     private boolean useWorldborder;
     private boolean RTPOnDeath;
-    private int CenterX, CenterZ, maxRad, minRad, price, min_y, max_y;
+    private int CenterX, CenterZ, maxXRad, minXRad, maxZRad, minZRad, price, min_y, max_y;
     private long cooldown;
     private List<String> Biomes;
     @Getter private final Player player;
@@ -59,8 +59,10 @@ public class WorldPlayer implements RTPWorld, RTPWorld_Defaulted {
         //BetterRTP.getInstance().getLogger().info("set to " + world.getCenterX());
         //BetterRTP.getInstance().getLogger().info("is now " + CenterX);
         setCenterZ(world.getCenterZ());
-        setMaxRadius(world.getMaxRadius());
-        setMinRadius(world.getMinRadius());
+        setMaxXRadius(world.getMaxXRadius());
+        setMinXRadius(world.getMinXRadius());
+        setMaxZRadius(world.getMaxZRadius());
+        setMinZRadius(world.getMinZRadius());
         setShape(world.getShape());
         if (world instanceof WorldDefault)
             setPrice(((WorldDefault) world).getPrice(getWorld().getName()));
@@ -76,17 +78,25 @@ public class WorldPlayer implements RTPWorld, RTPWorld_Defaulted {
         if (getUseWorldborder()) {
             WorldBorder border = getWorld().getWorldBorder();
             int _borderRad = (int) border.getSize() / 2;
-            if (getMaxRadius() > _borderRad)
-                setMaxRadius(_borderRad);
+            if (getMaxXRadius() > _borderRad)
+                setMaxXRadius(_borderRad);
+            if (getMaxZRadius() > _borderRad)
+                setMaxZRadius(_borderRad);
             setCenterX(border.getCenter().getBlockX());
             setCenterZ(border.getCenter().getBlockZ());
         }
         //Make sure our borders will not cause an invalid integer
-        if (getMaxRadius() <= getMinRadius()) {
-            setMinRadius(BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinRadius());
-            if (getMaxRadius() <= getMinRadius())
-                setMinRadius(0);
+        if (getMaxXRadius() <= getMinXRadius()) {
+            setMinXRadius(BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinXRadius());
+            if (getMaxXRadius() <= getMinXRadius())
+                setMinXRadius(0);
         }
+        if (getMaxZRadius() <= getMinZRadius()) {
+            setMinZRadius(BetterRTP.getInstance().getRTP().getRTPdefaultWorld().getMinZRadius());
+            if (getMaxZRadius() <= getMinZRadius())
+                setMinZRadius(0);
+        }
+
         //MinY
         setMinY(world.getMinY());
         setMaxY(world.getMaxY());
@@ -100,17 +110,17 @@ public class WorldPlayer implements RTPWorld, RTPWorld_Defaulted {
     public static boolean checkIsValid(Location loc, RTPWorld rtpWorld) { //Will check if a previously given location is valid
         if (loc.getWorld() != rtpWorld.getWorld())
             return false;
-        int _xLMax = rtpWorld.getCenterX() - rtpWorld.getMaxRadius(); //I|-||
-        int _xLMin = rtpWorld.getCenterX() - rtpWorld.getMinRadius(); //|I-||
-        int _xRMax = rtpWorld.getCenterX() + rtpWorld.getMaxRadius(); //||-|I
-        int _xRMin = rtpWorld.getCenterX() + rtpWorld.getMinRadius(); //||-I|
+        int _xLMax = rtpWorld.getCenterX() - rtpWorld.getMaxXRadius(); //I|-||
+        int _xLMin = rtpWorld.getCenterX() - rtpWorld.getMinXRadius(); //|I-||
+        int _xRMax = rtpWorld.getCenterX() + rtpWorld.getMaxXRadius(); //||-|I
+        int _xRMin = rtpWorld.getCenterX() + rtpWorld.getMinXRadius(); //||-I|
         int _xLoc = loc.getBlockX();
         if (_xLoc < _xLMax || (_xLoc > _xLMin && _xLoc < _xRMin) || _xLoc > _xRMax)
             return false;
-        int _zLMax = rtpWorld.getCenterZ() - rtpWorld.getMaxRadius(); //I|-||
-        int _zLMin = rtpWorld.getCenterZ() - rtpWorld.getMinRadius(); //|I-||
-        int _zRMax = rtpWorld.getCenterZ() + rtpWorld.getMaxRadius(); //||-|I
-        int _zRMin = rtpWorld.getCenterZ() + rtpWorld.getMinRadius(); //||-I|
+        int _zLMax = rtpWorld.getCenterZ() - rtpWorld.getMaxZRadius(); //I|-||
+        int _zLMin = rtpWorld.getCenterZ() - rtpWorld.getMinZRadius(); //|I-||
+        int _zRMax = rtpWorld.getCenterZ() + rtpWorld.getMaxZRadius(); //||-|I
+        int _zRMin = rtpWorld.getCenterZ() + rtpWorld.getMinZRadius(); //||-I|
         int _zLoc = loc.getBlockX();
         return _zLoc >= _zLMax && (_zLoc <= _zLMin || _zLoc >= _zRMin) && _zLoc <= _zRMax;
     }
@@ -137,13 +147,23 @@ public class WorldPlayer implements RTPWorld, RTPWorld_Defaulted {
     }
 
     @Override
-    public int getMaxRadius() {
-        return maxRad;
+    public int getMaxXRadius() {
+        return maxXRad;
     }
 
     @Override
-    public int getMinRadius() {
-        return minRad;
+    public int getMinXRadius() {
+        return minXRad;
+    }
+
+    @Override
+    public int getMaxZRadius() {
+        return maxZRad;
+    }
+
+    @Override
+    public int getMinZRadius() {
+        return minZRad;
     }
 
     @Override
@@ -181,12 +201,20 @@ public class WorldPlayer implements RTPWorld, RTPWorld_Defaulted {
     }
 
     //Modifiable
-    public void setMaxRadius(int max) {
-        maxRad = max;
+    public void setMaxXRadius(int max) {
+        maxXRad = max;
     }
 
-    public void setMinRadius(int min) {
-        minRad = min;
+    public void setMinXRadius(int min) {
+        minXRad = min;
+    }
+
+    public void setMaxZRadius(int max) {
+        maxZRad = max;
+    }
+
+    public void setMinZRadius(int min) {
+        minZRad = min;
     }
 
     public void setPrice(int price) {
