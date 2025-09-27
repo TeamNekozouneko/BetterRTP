@@ -47,6 +47,7 @@ public class BetterRTP extends JavaPlugin {
     @Getter private boolean PlaceholderAPI;
     @Getter private final RTPLogger rtpLogger = new RTPLogger();
     @Getter private final FoliaHandler foliaHandler = new FoliaHandler();
+    public static final Boolean isFolia = isClassExists("io.papermc.paper.threadedregions.RegionizedServer") || isClassExists("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
 
     @Override
     public void onEnable() {
@@ -117,5 +118,14 @@ public class BetterRTP extends JavaPlugin {
 
     public static void debug(String str) {
         getInstance().getLogger().info(str);
+    }
+
+    private static boolean isClassExists(String clazz) {
+        try{
+            Class.forName((clazz));
+            return true;
+        }catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }
