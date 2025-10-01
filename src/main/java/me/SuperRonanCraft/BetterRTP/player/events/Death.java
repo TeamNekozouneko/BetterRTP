@@ -39,6 +39,10 @@ public class Death {
 
         // Detection respawn
         if (worldPlayer.getRTPOnDeath()) Bukkit.getGlobalRegionScheduler().runAtFixedRate(BetterRTP.getInstance(), (task)->{
+            if(!p.isOnline()) {
+                if(!task.isCancelled()) task.cancel();
+                return;
+            }
             if(!p.isDead()){
                 HelperRTP.tp(p, p, p.getWorld(), null, RTP_TYPE.FORCED, true, true);
                 if(!task.isCancelled()) task.cancel();
