@@ -22,6 +22,7 @@ public class Death {
                 p.getWorld(),
                 p, p, false
         ));
+        if (p.getRespawnLocation() != null) return;
         if (worldPlayer.getRTPOnDeath()) {
             HelperRTP.tp(p, p, p.getWorld(), null, RTP_TYPE.FORCED, true, true);
         }
@@ -36,6 +37,8 @@ public class Death {
                 p.getWorld(),
                 p, p, false
         ));
+
+        if (p.getRespawnLocation() != null) return;
 
         // Detection respawn
         if (worldPlayer.getRTPOnDeath()) Bukkit.getGlobalRegionScheduler().runAtFixedRate(BetterRTP.getInstance(), (task)->{
