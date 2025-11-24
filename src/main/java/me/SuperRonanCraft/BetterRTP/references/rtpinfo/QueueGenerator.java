@@ -26,7 +26,7 @@ public class QueueGenerator {
 
     boolean loaded = false;
     public static final int queueMax = 300, queueMin = 100; //Amount to ready up for each rtp world
-    private final int queueMaxAttempts = 50;
+    private final int queueMaxAttempts = 100;
     boolean generating;
     private WrappedTask task;
 
